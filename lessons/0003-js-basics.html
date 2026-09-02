@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>第 3 课 · 让页面会动手：JavaScript 基础 — Vue3 × Pixso 课程</title>
+<link rel="stylesheet" href="../assets/course.css" />
+</head>
+<body>
+
+<header class="lesson-header">
+  <div class="course">Vue3 × Pixso 课程 · 里程碑 3</div>
+  <h1>第 3 课：让页面会动手 —— JavaScript 基础</h1>
+  <p class="meta">预计 40–50 分钟 · <strong>前提：已完成第 1、2 课练习</strong> · <time datetime="2025-09-03">第 3 课</time></p>
+</header>
+
+<section>
+  <h2>回顾 10 秒</h2>
+  <p>HTML 定了「有什么」，CSS 定了「长什么样」，但到今天为止，你的页面是<strong>静止的</strong>——像一张导出的 PNG。JavaScript 是第三件套：它让页面<strong>动起来、会响应</strong>——点按钮换内容、数据变化页面跟着变。</p>
+  <p>Vue3 本质上是在帮你更省力地写 JS；所以这一步的底子打牢，第 4 课你会觉得 Vue 特别顺手。</p>
+  <p>本课结束你会：在名片卡上加一个按钮，点击后页面上的文字真的会变。这也是「假数据联通」里「按钮→变内容」交互的最小雏形。</p>
+</section>
+
+<section>
+  <h2>把代码放进哪里：&lt;script&gt;</h2>
+  <p>JS 写在 <code>&lt;script&gt;…&lt;/script&gt;</code> 里，惯例放在 <code>&lt;body&gt;</code> 的<strong>最后一行之前</strong>（保证页面元素都先画出来，脚本再去找它们）：</p>
+  <pre><code>&lt;/body&gt;          <span class="c">&lt;!-- 这之前是页面的 HTML --&gt;</span>
+&lt;script&gt;
+  <span class="c">// 你的 JS 写在这里；// 是单行注释</span>
+&lt;/script&gt;
+&lt;/body&gt;</code></pre>
+  <p>JS 注释用 <code>//</code>（CSS 用 <code>/* */</code>，别混）。</p>
+</section>
+
+<section>
+  <h2>变量：给数据起个名字</h2>
+  <p>网页里到处是数据：用户名、价格、订单状态。把数据存进<strong>变量</strong>，之后就能反复用它：</p>
+  <pre><code>const name = "小明";      <span class="c">// 常量：存进去就不能改（推荐默认用它）</span>
+let count = 0;            <span class="c">// 变量：以后还要改它的值（比如计数）</span>
+
+console.log(name);        <span class="c">// 在浏览器开发者工具里打印出来给你看</span></code></pre>
+  <ul>
+    <li><code>const</code>（不能改）与 <code>let</code>（能改）——以后写代码 99% 用这两个；老教程里的 <code>var</code> 别学。</li>
+    <li>字符串要加引号：<code>"小明"</code>；数字不用：<code>0</code>。</li>
+    <li><code>console.log(…) </code>：在页面按 <code>⌥⌘I</code> 打开开发者工具 → Console 面板，能看到打印结果——这是你的「调试小窗口」。</li>
+  </ul>
+</section>
+
+<section>
+  <h2>函数：给一组动作起个名字</h2>
+  <p>函数 = <strong>打包好的一组动作</strong>，起个名字，随时调用：</p>
+  <pre><code>function sayHello() {
+  console.log("你好，页面活了！");
+}
+
+sayHello();   <span class="c">// 调用：执行函数里打包的动作（注意后面的括号）</span></code></pre>
+  <p>读法：<em>「定义一个叫 sayHello 的函数，它做的事是打印一句话；然后调用它一次」</em>。<strong>定义时不执行，调用（写名字 + 括号）时才执行</strong>——这个区别后面常考。</p>
+</section>
+
+<section>
+  <h2>让按钮干活的公式（本课核心）</h2>
+  <p>让「点按钮 → 页面变化」发生，只需要三步公式：</p>
+  <pre><code><span class="c">// 1. 找到按钮（选择器语法和 CSS 一样！）</span>
+const btn = document.querySelector("button");
+
+<span class="c">// 2. 定义要执行的动作（函数）</span>
+function changeName() {
+  document.querySelector("h1").textContent = "你好，我是新名字！";
+}
+
+<span class="c">// 3. 告诉按钮：点击时执行这个动作</span>
+btn.addEventListener("click", changeName);</code></pre>
+  <p>逐句翻译：</p>
+  <ul>
+    <li><code>document.querySelector("button")</code> = 「在页面里找第一个 button，给我」——括号里写 CSS 选择器，跟第 2 课学的 <code>.box</code>、<code>h1</code> 完全同一套语法。</li>
+    <li><code>.textContent = "…"</code> = 「把这个元素的文字换成…」</li>
+    <li><code>addEventListener("click", changeName)</code> = 「监听点击事件，点了就调用 changeName」</li>
+  </ul>
+  <div class="tip">
+    <strong>理解小窍门</strong>
+    第 1 课盒子 + 第 2 课上妆 + 本课「找到盒子、改它内容」——等你学 Vue 时，会发现 Vue 把「找到盒子」和「改内容」都包办了（用 ref 和模板），你只需要管数据。但先亲手做一遍，你才知道 Vue 替你省了多少事。
+  </div>
+</section>
+
+<div class="exercise">
+  <strong>练习（动手 20–25 分钟）：让名片卡上的按钮真正干活</strong>
+  <p>打开你的 <code>practice/index.html</code>（第 2 课装修过的版本），做下面四步——其中有几处是 <code>____</code> 空，自己填：</p>
+  <ol>
+    <li>在卡片的 <code>&lt;h1&gt;</code> 下面加一个按钮：
+      <pre><code>&lt;button&gt;点我换名字&lt;/button&gt;</code></pre>
+    </li>
+    <li>在 <code>&lt;/body&gt;</code> 前加上 <code>&lt;script&gt;…&lt;/script&gt;</code>，把下面代码抄进去，并填好三处空：
+      <pre><code>&lt;script&gt;
+  <span class="c">// 1. 找到按钮</span>
+  const btn = ____.querySelector("button");
+
+  <span class="c">// 2. 动作：把 h1 的文字换成你自己的名字</span>
+  function changeName() {
+    document.querySelector("____").textContent = "你好，我是____！";
+  }
+
+  <span class="c">// 3. 点击时执行</span>
+  btn.addEventListener("____", changeName);
+&lt;/script&gt;</code></pre>
+    </li>
+    <li>保存 <code>⌘S</code> → 浏览器刷新 <code>⌘R</code> → 点按钮。h1 变了 = 你成功了。</li>
+    <li>（进阶挑战）再做一个「计数器」：页面显示 <code>&lt;p&gt;点了 0 次&lt;/p&gt;</code>，每次点按钮数字 +1。提示：需要一个 <code>let count = 0</code>，在函数里 <code>count = count + 1</code>，再把 <code>count</code> 填回那个 <code>&lt;p&gt;</code> 的文字里。</li>
+  </ol>
+  <ul class="checklist">
+    <li>我的按钮在页面上显示出来了</li>
+    <li>点按钮后 h1 的文字真的变了</li>
+    <li>我能说出三个空分别为什么填 document、h1（或类名）、click</li>
+    <li>（可选）计数器每次点击 +1</li>
+  </ul>
+  <div class="warnbox">
+    <strong>点了没反应？按顺序查：</strong>
+    ① <code>&lt;script&gt;</code> 是否在 <code>&lt;/body&gt;</code> 前；② 三个空是否填对（<code>document</code> / <code>h1</code> / <code>click</code>）；③ 按钮和 h1 的名字有没有拼错；④ 打开开发者工具 Console（<code>⌥⌘I</code>）看有没有红色报错，把报错文字发给我。
+  </div>
+</div>
+
+<div class="quiz">
+  <p>1. 想存一个「以后还要改」的数，用哪个关键字？</p>
+  <button class="quiz-opt" data-ok="false" data-explain="const 存进去就不能改，适合不变的值。">const</button>
+  <button class="quiz-opt" data-ok="true" data-explain="let 的值可以重新赋值，适合会变的数。">let</button>
+  <button class="quiz-opt" data-ok="false" data-explain="var 是老写法，新代码里不推荐学它。">var</button>
+  <p class="quiz-feedback" hidden></p>
+</div>
+
+<div class="quiz">
+  <p>2. 定义函数后，什么时候才真正执行？</p>
+  <button class="quiz-opt" data-ok="false" data-explain="定义只是打包动作，不会执行。">定义的时候</button>
+  <button class="quiz-opt" data-ok="true" data-explain="调用 = 写函数名加括号，那一刻才执行。">调用的时候（名字 + 括号）</button>
+  <button class="quiz-opt" data-ok="false" data-explain="函数不会自己跑，必须被调用。">保存文件的时候</button>
+  <p class="quiz-feedback" hidden></p>
+</div>
+
+<div class="quiz">
+  <p>3. 让按钮「点击后执行某个函数」，用哪句？</p>
+  <button class="quiz-opt" data-ok="false" data-explain="querySelector 是「找到元素」，不是监听。">document.querySelector("button")</button>
+  <button class="quiz-opt" data-ok="false" data-explain="textContent 是改文字，不管点击。">h1.textContent = "…"</button>
+  <button class="quiz-opt" data-ok="true" data-explain="监听 click 事件，点了就调用后面的函数。">btn.addEventListener("click", fn)</button>
+  <p class="quiz-feedback" hidden></p>
+</div>
+
+<hr />
+
+<section>
+  <h2>这节课你赢了什么</h2>
+  <ul>
+    <li>会用 <code>const</code> / <code>let</code> 存数据，会用 <code>console.log</code> 看结果</li>
+    <li>会定义并调用函数：<code>function fn() {…}</code> → <code>fn()</code></li>
+    <li>背下了「按钮干活三连」：<code>querySelector</code> 找 → 函数定动作 → <code>addEventListener("click", fn)</code> 挂上</li>
+    <li>你做出了人生第一个「点一下会变」的网页</li>
+  </ul>
+  <div class="tip">
+    <strong>复习小动作（明天 3 分钟）</strong>
+    不看本页，默写「按钮干活三连」的三行骨架；再想想：要让页面上某段文字变色，除了 <code>textContent</code>，你觉得会不会有改样式的办法？（答案在下节课前揭晓——动手查也行：搜「JavaScript 改元素样式 classList」）
+  </div>
+  <p>想读更细（挑着读，不用全看）：MDN <a href="https://developer.mozilla.org/zh-CN/docs/Learn_web_development/Core/Scripting">「JavaScript 第一步」</a>、<a href="https://developer.mozilla.org/zh-CN/docs/Learn_web_development/Core/Scripting/Functions">「函数」</a>、<a href="https://developer.mozilla.org/zh-CN/docs/Learn_web_development/Core/Scripting/Events">「事件」</a>三节。速查见 <a href="../reference/0003-js-cheatsheet.html">JS 速查表</a>。</p>
+  <div class="keyidea">
+    <strong>有问题随时问老师</strong>
+    计数器卡住、按钮没反应、报错看不懂——把代码和 Console 里的红字发给我。另外别忘了把第 1 课的 Pixso 盒子树结果一起发来，我等你验收。
+  </div>
+</section>
+
+<nav class="lesson-nav">
+  <span><a href="0002-css-and-box-model.html">← 第 2 课：CSS 上妆</a></span>
+  <span><a href="../index.html">课程首页</a> · <a href="../reference/0003-js-cheatsheet.html">JS 速查表 →</a></span>
+</nav>
+
+<script src="../assets/quiz.js"></script>
+</body>
+</html>

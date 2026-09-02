@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>JavaScript 速查表（第 3 课） — Vue3 × Pixso 课程</title>
+<link rel="stylesheet" href="../assets/course.css" />
+</head>
+<body>
+
+<header class="lesson-header">
+  <div class="course">Vue3 × Pixso 课程 · 参考</div>
+  <h1>JavaScript 速查表</h1>
+  <p class="meta">配合<a href="../lessons/0003-js-basics.html">第 3 课</a>使用 · 可打印，随时回查</p>
+</header>
+
+<section>
+  <h2>一句话世界观</h2>
+  <blockquote><p>JavaScript 管「行为」：数据存在变量里，动作打包进函数，事件（如点击）触发函数去改页面。</p></blockquote>
+</section>
+
+<section>
+  <h2>写法与注释</h2>
+  <pre><code><span class="c">// JS 写在 &lt;script&gt;…&lt;/script&gt; 里，放在 &lt;/body&gt; 之前</span>
+<span class="c">// 单行注释用 //，多行用 /* … */</span></code></pre>
+</section>
+
+<section>
+  <h2>变量与输出（直接复制）</h2>
+  <pre><code>const name = "小明";   <span class="c">// 常量：不可改，默认用它</span>
+let count = 0;          <span class="c">// 变量：要改的值用 let</span>
+
+console.log(name);      <span class="c">// 开发者工具 Console 里查看（⌥⌘I）</span></code></pre>
+  <ul>
+    <li>字符串加引号 <code>"…"</code>，数字不加引号</li>
+    <li>不用 <code>var</code>（旧写法）</li>
+  </ul>
+</section>
+
+<section>
+  <h2>函数（直接复制）</h2>
+  <pre><code>function sayHello() {
+  console.log("你好");
+}
+
+sayHello();   <span class="c">// 调用才执行：名字 + 括号</span></code></pre>
+  <p>定义 ≠ 执行；<strong>调用（写名字 + 括号）才执行</strong>。</p>
+</section>
+
+<section>
+  <h2>「按钮干活三连」（本课核心）</h2>
+  <pre><code><span class="c">// 1. 找到元素（括号里是 CSS 选择器）</span>
+const btn = document.querySelector("button");
+
+<span class="c">// 2. 定义动作</span>
+function changeName() {
+  document.querySelector("h1").textContent = "你好，我是新名字！";
+}
+
+<span class="c">// 3. 绑定点击事件</span>
+btn.addEventListener("click", changeName);</code></pre>
+  <table>
+    <tr><th>工具</th><th>作用</th></tr>
+    <tr><td><code>document.querySelector("选择器")</code></td><td>在页面里找到第一个匹配的元素（选择器语法同 CSS）</td></tr>
+    <tr><td><code>元素.textContent = "…"</code></td><td>改元素的文字内容</td></tr>
+    <tr><td><code>元素.addEventListener("click", fn)</code></td><td>点击时执行函数 fn</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>常见坑 &amp; 排错顺序</h2>
+  <ol>
+    <li><code>&lt;script&gt;</code> 放 <code>&lt;/body&gt;</code> 之前</li>
+    <li>变量先声明再用；名字拼写一致（大小写敏感：<code>count</code> ≠ <code>Count</code>）</li>
+    <li>每行结尾：语句一般以 <code>;</code> 收尾（漏了通常也能跑，但养成习惯）</li>
+    <li>没反应就开开发者工具 Console（<code>⌥⌘I</code>）看红字报错</li>
+  </ol>
+</section>
+
+<nav class="lesson-nav">
+  <span><a href="../lessons/0003-js-basics.html">← 回到第 3 课</a></span>
+  <span><a href="0002-css-cheatsheet.html">CSS 速查表</a> · JS 速查表</span>
+</nav>
+</body>
+</html>

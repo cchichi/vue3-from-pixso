@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>第 1 课 · 网页就是「盒子里套盒子」 — Vue3 × Pixso 课程</title>
+<link rel="stylesheet" href="../assets/course.css" />
+</head>
+<body>
+
+<header class="lesson-header">
+  <div class="course">Vue3 × Pixso 课程 · 里程碑 1</div>
+  <h1>第 1 课：网页就是「盒子里套盒子」</h1>
+  <p class="meta">预计 30–40 分钟 · 给零基础的你 · <time datetime="2025-09-03">第 1 课</time>（共 7 个里程碑）</p>
+</header>
+
+<section>
+  <h2>我们最终要去哪</h2>
+  <p>整门课的地图（完整版见 <code>MISSION.md</code>）：</p>
+  <ol>
+    <li><strong>看得懂网页：HTML 结构与盒子思维 ← 你现在在这里</strong></li>
+    <li>给盒子上妆：CSS 与盒模型</li>
+    <li>让页面会思考：JavaScript 基础</li>
+    <li>进入 Vue3：模板语法与响应式</li>
+    <li>搭工程：Vite + Vue3，跑起 <code>npm run dev</code></li>
+    <li>组件化：把设计稿页面拆成组件</li>
+    <li>终极里程碑：<strong>Pixso 稿 → Vue3 代码 → 跑通 + 交互</strong></li>
+  </ol>
+  <p>今天这一步很小，但它决定后面所有课的底子——<strong>你 Pixso 里的每一页设计稿，本质上就是一堆排列好的「盒子」</strong>。先学会看盒子，后面才能把盒子变成代码。</p>
+</section>
+
+<section>
+  <h2>网页是「三件套」，本课只学第一件</h2>
+  <p>一个网页 = 三种语言各司其职（先混个脸熟，本课只用第一种）：</p>
+  <table>
+    <tr><th>语言</th><th>管什么</th><th>类比</th></tr>
+    <tr><td><strong>HTML</strong></td><td>结构：页面上有哪些东西、谁套着谁</td><td>房子的骨架与房间布局</td></tr>
+    <tr><td>CSS</td><td>长相：颜色、大小、间距、圆角</td><td>装修与家具摆放</td></tr>
+    <tr><td>JavaScript</td><td>行为：点了按钮会怎样、数据从哪来</td><td>水电与「活人」</td></tr>
+  </table>
+  <p>来源：<a href="https://developer.mozilla.org/zh-CN/docs/Learn_web_development">MDN：Web 开发入门（中文）</a></p>
+  <div class="tip">
+    <strong>为什么零基础也从 HTML 开始？</strong>
+    因为 Vue3 页面里写结构的那部分（叫 <code>template</code>）就是 HTML 加了一点魔法。HTML 是通往 Vue 的第一级台阶，没有捷径。
+  </div>
+</section>
+
+<section>
+  <h2>核心思想：标签 = 带名字的盒子</h2>
+  <p>HTML 的全部秘密只有一句话：</p>
+  <p><strong>网页的内容，都装在一个个「带名字的盒子」里；盒子一层层套着盒子。</strong></p>
+  <p>这种「盒子」在 HTML 里叫<strong>标签</strong>（英文 tag / element）。大多数标签要成对出现：</p>
+  <pre><code><span class="c">&lt;!-- 开标签：告诉浏览器“一个盒子从这里开始，它叫 div” --&gt;</span>
+&lt;div&gt;
+
+<span class="c">&lt;!-- 盒子里的内容写中间 … --&gt;</span>
+
+<span class="c">&lt;!-- 闭标签：比开标签多一个斜杠 /，告诉浏览器“盒子到这里结束” --&gt;</span>
+&lt;/div&gt;</code></pre>
+  <p>常见的几种「盒子」：</p>
+  <table>
+    <tr><th>标签</th><th>它是什么盒子</th></tr>
+    <tr><td><code>&lt;div&gt;</code></td><td>最通用的盒子，装啥都行（页面布局的主力）</td></tr>
+    <tr><td><code>&lt;h1&gt;</code> … <code>&lt;h6&gt;</code></td><td>标题盒子（h1 最大，往下越来越小）</td></tr>
+    <tr><td><code>&lt;p&gt;</code></td><td>一段文字的盒子</td></tr>
+    <tr><td><code>&lt;ul&gt;</code> + <code>&lt;li&gt;</code></td><td>列表盒子（ul 是整列，li 是每一行）</td></tr>
+    <tr><td><code>&lt;img&gt;</code>、<code>&lt;button&gt;</code></td><td>图片盒子、按钮盒子（这类不用写闭标签的少数派，先记住名字即可）</td></tr>
+  </table>
+  <p>完整速查表见 <a href="../reference/0001-html-cheatsheet.html">HTML 速查表（第 1 课参考）</a>。</p>
+  <div class="keyidea">
+    <strong>两条铁律</strong>
+    <p>① 开标签和闭标签必须配对，<code>&lt;div&gt;…&lt;/div&gt;</code>。<br />
+    ② 盒子只能一层套一层，<strong>不能交叉</strong>：先开的后闭，像剥洋葱一样从外往里关。</p>
+  </div>
+</section>
+
+<section>
+  <h2>一个网页文件的最小骨架</h2>
+  <p>任何网页（包括以后 Vue 生成的）最外面都是这个壳：</p>
+  <pre><code><span class="c">&lt;!-- 声明：我是 HTML5 文档 --&gt;</span>
+&lt;!doctype html&gt;
+&lt;html lang="zh-CN"&gt;      <span class="c">&lt;!-- 最外层大盒子：整个页面 --&gt;</span>
+  &lt;head&gt;                 <span class="c">&lt;!-- 大脑盒子：页面的设置信息，浏览器看、人不看 --&gt;</span>
+    &lt;meta charset="UTF-8" /&gt;   <span class="c">&lt;!-- 让中文不乱码 --&gt;</span>
+    &lt;title&gt;页面标题&lt;/title&gt;     <span class="c">&lt;!-- 浏览器标签页上显示的字 --&gt;</span>
+  &lt;/head&gt;
+  &lt;body&gt;                 <span class="c">&lt;!-- 身体盒子：页面上真正显示的东西都在这 --&gt;</span>
+    &lt;h1&gt;你好，世界&lt;/h1&gt;
+    &lt;p&gt;这是我的第一个网页。&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+  <p>请盯着看 30 秒：<code>html</code> 套着 <code>head</code> 和 <code>body</code>；<code>body</code> 里再套内容——<strong>还是盒子套盒子</strong>。</p>
+  <p>来源：<a href="https://developer.mozilla.org/zh-CN/docs/Learn_web_development/Core/Structuring_content">MDN：构建网页内容（中文）</a></p>
+</section>
+
+<div class="exercise">
+  <strong>练习 1（纸面练习，5 分钟）：去你的 Pixso 稿里找盒子树</strong>
+  <ol>
+    <li>打开 Pixso，挑一个<strong>最简单</strong>的页面（比如一张信息卡 / 一个设置项）。</li>
+    <li>看左侧<strong>图层面板</strong>：里面一层层缩进的图层名，就是设计稿的「盒子树」——顶层是整页，展开后是区块、再里面是文字和图片。</li>
+    <li>把最外面三层结构抄下来，例如：
+      <pre><code>页面
+└─ 卡片（最外层盒子）
+   ├─ 标题「我的订单」
+   └─ 列表
+      ├─ 订单 1
+      └─ 订单 2</code></pre>
+    </li>
+  </ol>
+  <p>不用追求完美，抄三层就行。抄完把结果发给老师（我）看一眼——这一步在训练你「用盒子的眼睛看设计稿」，是第 7 课转化的核心能力。</p>
+</div>
+
+<div class="exercise">
+  <strong>练习 2（动手，15–20 分钟）：写出并打开你的第一个页面</strong>
+  <ol>
+    <li>模板已经给你建好了：<code>vue3-coach/practice/index.html</code>（在课程文件夹里）。</li>
+    <li>在 VS Code 里打开它：菜单「文件 → 打开文件夹」选 <code>vue3-coach/practice</code>，然后点左侧文件名 <code>index.html</code>。</li>
+    <li>先<strong>读一遍</strong>，找到三样东西：最外层是哪个标签？标题是哪个标签？列表用哪两个标签？</li>
+    <li>动手改（改完保存 <code>⌘S</code>）：把「小明」改成你的名字；把爱好列表加一行；再在卡片里<strong>新增一个</strong> <code>&lt;div&gt;</code> 盒子，里面随便写一句话。</li>
+    <li>双击 <code>index.html</code>（或在 VS Code 里点右下角「Go Live」之前，先用最简单的方式：在访达里双击它）——浏览器会打开它。</li>
+    <li>在浏览器里刷新（<code>⌘R</code>），确认你改的字都变了，<strong>虚线框住的地方就是一个个盒子</strong>。</li>
+  </ol>
+  <ul class="checklist">
+    <li>我的页面能在浏览器里打开</li>
+    <li>我改了名字并刷新后看到了变化</li>
+    <li>我新增了一个 <code>&lt;div&gt;</code> 并看到新的虚线框</li>
+    <li>我能指着页面说出「这个区域是哪个标签」</li>
+  </ul>
+</div>
+
+<div class="quiz">
+  <p>1. 网页的「骨架 / 结构」由哪种语言负责？</p>
+  <button class="quiz-opt" data-ok="true" data-explain="HTML 管结构，CSS 管长相，JavaScript 管行为。">HTML</button>
+  <button class="quiz-opt" data-ok="false" data-explain="CSS 管颜色和布局，不负责结构。">CSS</button>
+  <button class="quiz-opt" data-ok="false" data-explain="JavaScript 管行为，比如点击后做什么。">JavaScript</button>
+  <p class="quiz-feedback" hidden></p>
+</div>
+
+<div class="quiz">
+  <p>2. 哪个写法是「开标签」？</p>
+  <button class="quiz-opt" data-ok="true" data-explain="开标签没有斜杠，闭标签才有，像 &lt;/div&gt;。">&lt;div&gt;</button>
+  <button class="quiz-opt" data-ok="false" data-explain="带斜杠的是闭标签。">&lt;/div&gt;</button>
+  <button class="quiz-opt" data-ok="false" data-explain="没有尖括号就不是标签。">div</button>
+  <p class="quiz-feedback" hidden></p>
+</div>
+
+<div class="quiz">
+  <p>3. 关于盒子嵌套的说法，正确的是？</p>
+  <button class="quiz-opt" data-ok="true" data-explain="只能一层层套、不能交叉；先开的盒子后关，像剥洋葱。">盒子只能一层套一层，不能交叉</button>
+  <button class="quiz-opt" data-ok="false" data-explain="顺序是有讲究的：先开后关，交叉会让浏览器糊涂。">开闭顺序无所谓，随便关</button>
+  <button class="quiz-opt" data-ok="false" data-explain="绝大多数标签都要配对出现。">闭标签可以随便省略</button>
+  <p class="quiz-feedback" hidden></p>
+</div>
+
+<hr />
+
+<section>
+  <h2>这节课你赢了什么</h2>
+  <ul>
+    <li>一句话复述 HTML：<strong>网页内容装在带名字的盒子里，盒子一层套一层。</strong></li>
+    <li>会认最常见的标签：<code>html / head / body / h1 / p / div / ul / li</code>。</li>
+    <li>写出了你的第一个网页文件，并会改、会刷新、会看结果。</li>
+    <li>开始用「盒子眼」看你的 Pixso 设计稿。</li>
+  </ul>
+  <div class="tip">
+    <strong>复习小动作（明天花 3 分钟）</strong>
+    合上本页，凭记忆默写一遍「最小网页骨架」，再对照上面代码检查。想不起来才看——这种「先回忆后对照」最能加深记忆（这叫检索练习，整门课我们都会用它）。
+  </div>
+  <p>想读更细的入门，推荐 MDN 的<a href="https://developer.mozilla.org/zh-CN/docs/Learn_web_development/Core/Structuring_content">「构建网页内容」章节</a>，读完前两节即可，不用贪多。</p>
+  <div class="keyidea">
+    <strong>有问题随时问老师</strong>
+    卡住、看不懂、报错、或者练习 1 的盒子树拿不准——直接把这个页面的问题发给 AI 老师（就是正在陪你学的我）。告诉我你做到哪一步、看到什么，我会接着教你，不会嫌问题简单。
+  </div>
+</section>
+
+<nav class="lesson-nav">
+  <span>← 课程开始</span>
+  <span><a href="../reference/0001-html-cheatsheet.html">HTML 速查表 →</a></span>
+</nav>
+
+<script src="../assets/quiz.js"></script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+# 教师内部档案 —— 不随仓库公开
+NOTES.md
+MISSION.md
+learning-records/
+
+# 系统文件
+.DS_Store
+*.swp

@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>第 2 课 · 给盒子上妆：CSS 与盒模型 — Vue3 × Pixso 课程</title>
+<link rel="stylesheet" href="../assets/course.css" />
+</head>
+<body>
+
+<header class="lesson-header">
+  <div class="course">Vue3 × Pixso 课程 · 里程碑 2</div>
+  <h1>第 2 课：给盒子上妆 —— CSS 与盒模型</h1>
+  <p class="meta">预计 30–40 分钟 · <strong>前提：已完成第 1 课的两个练习</strong> · <time datetime="2025-09-03">第 2 课</time></p>
+</header>
+
+<section>
+  <h2>回顾 10 秒</h2>
+  <p>第 1 课我们建立了世界观：<strong>网页 = 带名字的盒子（HTML 标签）一层套一层</strong>。HTML 回答「有什么」，CSS 回答「长什么样」——就像 Pixso 里同一块内容，可以描边、填色、调间距。</p>
+  <p>本课结束你会：给任何 HTML 盒子加上颜色、圆角、内外边距，并能说清楚「盒模型」的四层结构——这是第 7 课把 Pixso 样式翻译成代码的必备技能。</p>
+</section>
+
+<section>
+  <h2>CSS 的一句话语法</h2>
+  <p>CSS 的每一条规则都是：<strong>选谁（选择器）→ 设什么（属性: 值;）</strong></p>
+  <pre><code><span class="c">/* 给页面上所有的 h1 上妆： */</span>
+h1 {
+  color: #2c7a5f;      <span class="c">/* 文字颜色 */</span>
+  font-size: 28px;     <span class="c">/* 字号：px 是像素 */</span>
+}</code></pre>
+  <p>读法：<em>「选中的 h1，文字颜色设为深绿，字号设为 28 像素」</em>。每行结尾有分号 <code>;</code>，别漏。</p>
+  <p>写在哪里？最简单的做法：写在 HTML 文件的 <code>&lt;head&gt;</code> 里的 <code>&lt;style&gt;…&lt;/style&gt;</code> 中（你第 1 课的 <code>practice/index.html</code> 里已经有了一个，只是我们当时只用来描边）。</p>
+
+  <h3>两种选择器，本课够用</h3>
+  <table>
+    <tr><th>选择器</th><th>写法</th><th>选中谁</th><th>HTML 里的配合</th></tr>
+    <tr><td>标签选择器</td><td><code>h1 { … }</code></td><td>所有同名标签</td><td>无需改动</td></tr>
+    <tr><td>类选择器</td><td><code>.card { … }</code></td><td>所有带这个 class 的元素</td><td><code>&lt;div class="card"&gt;</code></td></tr>
+  </table>
+  <p>「类」就像给人贴标签：同一页可以有多个 <code>class="card"</code> 的盒子，一条 CSS 就给它们全部上妆。贴标签用 HTML，定妆用 CSS，职责分明。</p>
+</section>
+
+<section>
+  <h2>盒模型：一个盒子的四层结构</h2>
+  <p>每个 HTML 盒子，从外到里都是四层（这是 CSS 最重要的一个模型，必须背下来）：</p>
+  <pre><code>┌─ margin（外边距：盒子与<strong>其他盒子</strong>之间的距离）─────┐
+│ ┌─ border（边框：盒子的墙，可描边/圆角）───────────┐ │
+│ │ ┌─ padding（内边距：<strong>内容</strong>与边框的距离）─────┐ │ │
+│ │ │  content（内容：文字 / 图片 / 子盒子）      │ │ │
+│ │ └───────────────────────────────────────────┘ │ │
+│ └───────────────────────────────────────────────┘ │
+└───────────────────────────────────────────────────┘</code></pre>
+  <p>口诀：<strong>「从外到里：margin → border → padding → content」</strong>。Pixso 里你调间距时——元素之间的空白大致对应 margin，元素内部的留白对应 padding，描边对应 border。能对号入座，后面翻译样式就顺了。</p>
+  <div class="tip">
+    <strong>马上感受一下（10 秒实验）</strong>
+    打开你的 <code>practice/index.html</code>，找到 section 的样式，把 <code>padding: 12px</code> 改成 <code>60px</code> 保存刷新——看到没？内容离虚线框变远了，这就是 padding（内边距）。改完改回来，再试试 <code>margin</code>。
+  </div>
+</section>
+
+<section>
+  <h2>本课常用属性速查</h2>
+  <table>
+    <tr><th>属性</th><th>作用</th><th>示例</th></tr>
+    <tr><td><code>color</code></td><td>文字颜色</td><td><code>color: #333;</code></td></tr>
+    <tr><td><code>background</code></td><td>背景颜色</td><td><code>background: #fff;</code></td></tr>
+    <tr><td><code>font-size</code></td><td>字号</td><td><code>font-size: 20px;</code></td></tr>
+    <tr><td><code>border-radius</code></td><td>圆角（越大越圆）</td><td><code>border-radius: 12px;</code></td></tr>
+    <tr><td><code>padding</code></td><td>内边距（内容↔边框）</td><td><code>padding: 16px;</code></td></tr>
+    <tr><td><code>margin</code></td><td>外边距（盒子↔盒子）</td><td><code>margin: 8px auto;</code></td></tr>
+    <tr><td><code>text-align</code></td><td>文字对齐</td><td><code>text-align: center;</code></td></tr>
+    <tr><td><code>width</code></td><td>盒子宽度</td><td><code>width: 320px;</code></td></tr>
+  </table>
+  <p>颜色除了 <code>#2c7a5f</code> 这种十六进制，也可以直接写单词 <code>red</code>、<code>white</code>。想挑颜色：Pixso 里每个图层的属性面板就有色值，直接抄过来用！</p>
+</section>
+
+<div class="exercise">
+  <strong>练习（动手 15–20 分钟）：把你的名片卡真正「装修」起来</strong>
+  <p>打开 <code>vue3-coach/practice/index.html</code>（若你第 1 课改过，就用你自己的版本），按顺序做：</p>
+  <ol>
+    <li>给 <code>body</code> 加浅灰背景，例如 <code>background: #f0f0f0;</code></li>
+    <li>让 <code>section</code>（你的卡片）变成「真卡片」：白底 <code>background: #fff;</code>、圆角 <code>border-radius: 12px;</code>、去掉原来的虚线描边（删掉 <code>border: …</code> 那行）、加内边距 <code>padding: 20px;</code>、左右居中 <code>margin: 40px auto;</code> + 一个宽度 <code>width: 340px;</code></li>
+    <li>给 <code>h1</code> 换颜色与字号（试着用 Vue 绿 <code>#42b883</code>）</li>
+    <li>把「我的爱好」那块 <code>div</code> 加个类 <code>class="box"</code>，然后用类选择器 <code>.box { … }</code> 给它浅绿底 <code>background: #e6f5ee;</code> 和圆角 <code>border-radius: 8px;</code></li>
+    <li>体验差异：分别把 <code>padding</code> 与 <code>margin</code> 调大再调小，刷新观察——哪个影响「框内」，哪个影响「框外」？</li>
+  </ol>
+  <ul class="checklist">
+    <li>我的卡片是白底圆角、页面是浅灰底（像 Pixso 里的卡片效果了）</li>
+    <li>我能用类选择器 <code>.box</code> 只给一块区域上妆</li>
+    <li>我能说清 padding 和 margin 各自管「框内」还是「框外」</li>
+    <li>我把每一步都保存（⌘S）并刷新（⌘R）看到了变化</li>
+  </ul>
+  <div class="warnbox">
+    <strong>样式没生效？按顺序查这三样</strong>
+    ① <code>&lt;style&gt;</code> 是否在 <code>&lt;head&gt;</code> 里且拼写正确；② 属性行是否以分号 <code>;</code> 结尾；③ 类名拼写是否一致——HTML 里 <code>class="box"</code>，CSS 里必须写 <code>.box</code>（有点号、拼写完全一样）。
+  </div>
+</div>
+
+<div class="quiz">
+  <p>1. 每条 CSS 规则的基本结构是？</p>
+  <button class="quiz-opt" data-ok="true" data-explain="格式固定：选择器 { 属性: 值; }。">选择器 { 属性: 值; }</button>
+  <button class="quiz-opt" data-ok="false" data-explain="值要写在花括号里，并配属性名。">{ 值: 属性 } 选择器</button>
+  <button class="quiz-opt" data-ok="false" data-explain="CSS 靠选择器指认目标，没有匿名样式。">直接写 颜色: 红色;</button>
+  <p class="quiz-feedback" hidden></p>
+</div>
+
+<div class="quiz">
+  <p>2. 盒模型从外到里的正确顺序是？</p>
+  <button class="quiz-opt" data-ok="false" data-explain="content 是最里面，不是最外面。">content → padding → border → margin</button>
+  <button class="quiz-opt" data-ok="true" data-explain="口诀：margin → border → padding → content。">margin → border → padding → content</button>
+  <button class="quiz-opt" data-ok="false" data-explain="border 在 padding 外面，顺序不能换。">padding → margin → content → border</button>
+  <p class="quiz-feedback" hidden></p>
+</div>
+
+<div class="quiz">
+  <p>3. 想让「内容」离盒子边框更远，应该调？</p>
+  <button class="quiz-opt" data-ok="false" data-explain="margin 管盒子与外面其他盒子的距离。">margin（外边距）</button>
+  <button class="quiz-opt" data-ok="true" data-explain="padding 是内容与边框之间的空间。">padding（内边距）</button>
+  <button class="quiz-opt" data-ok="false" data-explain="border-radius 只管圆角，不管距离。">border-radius（圆角）</button>
+  <p class="quiz-feedback" hidden></p>
+</div>
+
+<hr />
+
+<section>
+  <h2>这节课你赢了什么</h2>
+  <ul>
+    <li>会写 CSS 规则：<code>选择器 { 属性: 值; }</code></li>
+    <li>会用标签选择器与类选择器 <code>.box</code></li>
+    <li>背下了盒模型四层：margin → border → padding → content</li>
+    <li>把名片卡从「虚线框骨架」装修成了「白底圆角的真卡片」</li>
+  </ul>
+  <div class="tip">
+    <strong>复习小动作（明天 3 分钟）</strong>
+    不看本页，画出盒模型的四层并各写一个用途；再想想：Pixso 里「两个卡片之间的空白」对应哪一层？「卡片内部文字四周的留白」呢？想不出来就回头翻本课。
+  </div>
+  <p>想读更细：MDN 的<a href="https://developer.mozilla.org/zh-CN/docs/Learn_web_development/Core/Styling_basics">「CSS 入门」章节</a>和<a href="https://developer.mozilla.org/zh-CN/docs/Learn_web_development/Core/Styling_basics/Box_model">「盒模型」页</a>，读到「盒模型」一节即可。完整速查见 <a href="../reference/0002-css-cheatsheet.html">CSS 速查表</a>。</p>
+  <div class="keyidea">
+    <strong>有问题随时问老师</strong>
+    第 1 课的盒子树抄好了吗？第 2 课的颜色抄自 Pixso 属性面板，可以顺手发给我看看效果截图。卡在任何一步——样式不生效、颜色不对、不知道选哪个属性——直接回来问我，把代码和你看到的现象一起发来即可。
+  </div>
+</section>
+
+<nav class="lesson-nav">
+  <span><a href="0001-what-is-a-webpage.html">← 第 1 课：HTML 盒子</a></span>
+  <span><a href="../index.html">课程首页</a> · <a href="../reference/0002-css-cheatsheet.html">CSS 速查表 →</a></span>
+</nav>
+
+<script src="../assets/quiz.js"></script>
+</body>
+</html>

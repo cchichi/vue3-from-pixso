@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>HTML 速查表（第 1 课） — Vue3 × Pixso 课程</title>
+<link rel="stylesheet" href="../assets/course.css" />
+</head>
+<body>
+
+<header class="lesson-header">
+  <div class="course">Vue3 × Pixso 课程 · 参考</div>
+  <h1>HTML 速查表</h1>
+  <p class="meta">配合<a href="../lessons/0001-what-is-a-webpage.html">第 1 课</a>使用 · 可打印，随时回查</p>
+</header>
+
+<section>
+  <h2>一句话世界观</h2>
+  <blockquote><p>网页内容都装在<strong>带名字的盒子（标签）</strong>里，盒子一层套一层；先开的后闭，不能交叉。</p></blockquote>
+</section>
+
+<section>
+  <h2>最小文件骨架（直接复制）</h2>
+  <pre><code>&lt;!doctype html&gt;
+&lt;html lang="zh-CN"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8" /&gt;
+    &lt;title&gt;页面标题&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;!-- 你页面上显示的东西都写这里 --&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+  <ul>
+    <li><code>&lt;!doctype html&gt;</code> 声明这是 HTML5</li>
+    <li><code>head</code> = 设置区（浏览器看）；<code>body</code> = 内容区（人看）</li>
+    <li><code>&lt;meta charset="UTF-8" /&gt;</code> 保证中文不乱码</li>
+  </ul>
+</section>
+
+<section>
+  <h2>常见标签速查</h2>
+  <table>
+    <tr><th>标签</th><th>用途</th><th>示例</th></tr>
+    <tr><td><code>&lt;div&gt;…&lt;/div&gt;</code></td><td>万能盒子，布局主力</td><td><code>&lt;div&gt;任意内容&lt;/div&gt;</code></td></tr>
+    <tr><td><code>&lt;h1&gt;</code>~<code>&lt;h6&gt;</code></td><td>标题，1 最大 6 最小</td><td><code>&lt;h1&gt;页面主标题&lt;/h1&gt;</code></td></tr>
+    <tr><td><code>&lt;p&gt;…&lt;/p&gt;</code></td><td>一段文字</td><td><code>&lt;p&gt;这是一段话。&lt;/p&gt;</code></td></tr>
+    <tr><td><code>&lt;ul&gt;</code>+<code>&lt;li&gt;</code></td><td>无序列表（ul 整列，li 每行）</td><td><code>&lt;ul&gt;&lt;li&gt;甲&lt;/li&gt;&lt;li&gt;乙&lt;/li&gt;&lt;/ul&gt;</code></td></tr>
+    <tr><td><code>&lt;a href="…"&gt;</code></td><td>链接，点了跳走</td><td><code>&lt;a href="https://cn.vuejs.org"&gt;Vue 中文网&lt;/a&gt;</code></td></tr>
+    <tr><td><code>&lt;img src="图片地址" /&gt;</code></td><td>图片（不需要闭标签）</td><td><code>&lt;img src="cat.png" /&gt;</code></td></tr>
+    <tr><td><code>&lt;button&gt;…&lt;/button&gt;</code></td><td>按钮</td><td><code>&lt;button&gt;点我&lt;/button&gt;</code></td></tr>
+    <tr><td><code>&lt;input /&gt;</code></td><td>输入框（不需要闭标签）</td><td><code>&lt;input placeholder="请输入" /&gt;</code></td></tr>
+    <tr><td><code>&lt;!-- 注释 --&gt;</code></td><td>给人看的备注，浏览器忽略</td><td><code>&lt;!-- 这里放导航 --&gt;</code></td></tr>
+  </table>
+  <p>更全的标签列表：<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element">MDN：HTML 元素参考</a></p>
+</section>
+
+<section>
+  <h2>两条铁律 &amp; 常见坑</h2>
+  <ul>
+    <li><strong>配对：</strong>开 <code>&lt;div&gt;</code> 闭 <code>&lt;/div&gt;</code>，漏闭标签是新手第一错。</li>
+    <li><strong>嵌套不交叉：</strong>先开的后闭。错的：<code>&lt;div&gt;&lt;p&gt;…&lt;/div&gt;&lt;/p&gt;</code>；对的：<code>&lt;div&gt;&lt;p&gt;…&lt;/p&gt;&lt;/div&gt;</code></li>
+    <li><strong>注释不会显示：</strong><code>&lt;!-- 里面写什么用户都看不见 --&gt;</code></li>
+    <li>中文乱码 → 检查 <code>&lt;meta charset="UTF-8" /&gt;</code> 是否在 <code>head</code> 里。</li>
+  </ul>
+</section>
+
+<section>
+  <h2>日常动作</h2>
+  <table>
+    <tr><th>动作</th><th>怎么做</th></tr>
+    <tr><td>看页面效果</td><td>双击 <code>.html</code> 文件，浏览器会打开</td></tr>
+    <tr><td>改完看变化</td><td>保存（<code>⌘S</code>）后切到浏览器按 <code>⌘R</code> 刷新</td></tr>
+    <tr><td>编辑代码</td><td>用 VS Code 打开文件（或「打开文件夹」整个工程）</td></tr>
+    <tr><td>查错</td><td>在浏览器里按 <code>⌥⌘I</code> 打开开发者工具看红色报错</td></tr>
+  </table>
+</section>
+
+<nav class="lesson-nav">
+  <span><a href="../lessons/0001-what-is-a-webpage.html">← 回到第 1 课</a></span>
+  <span>HTML 速查表</span>
+</nav>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CSS 速查表（第 2 课） — Vue3 × Pixso 课程</title>
+<link rel="stylesheet" href="../assets/course.css" />
+</head>
+<body>
+
+<header class="lesson-header">
+  <div class="course">Vue3 × Pixso 课程 · 参考</div>
+  <h1>CSS 速查表</h1>
+  <p class="meta">配合<a href="../lessons/0002-css-and-box-model.html">第 2 课</a>使用 · 可打印，随时回查</p>
+</header>
+
+<section>
+  <h2>一句话世界观</h2>
+  <blockquote><p>CSS 负责「长相」：<strong>选谁（选择器）→ 设什么（属性: 值;）</strong>。HTML 定结构，CSS 定样式，两者分离。</p></blockquote>
+</section>
+
+<section>
+  <h2>规则语法（直接复制）</h2>
+  <pre><code><span class="c">/* 标签选择器：选中所有 h1 */</span>
+h1 {
+  color: #2c7a5f;    <span class="c">/* 文字颜色 */</span>
+  font-size: 28px;   <span class="c">/* 字号 */</span>
+}
+
+<span class="c">/* 类选择器：选中所有 class="card" 的元素 */</span>
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 40px auto;   <span class="c">/* 上下 40px，左右自动居中 */</span>
+  width: 340px;
+}</code></pre>
+  <ul>
+    <li>HTML 里贴标签：<code>&lt;div class="card"&gt;…&lt;/div&gt;</code></li>
+    <li>CSS 里选标签：<code>.card { … }</code>（<strong>点号 + 完全相同的类名</strong>）</li>
+    <li>属性行以分号 <code>;</code> 结尾，注释用 <code>/* … */</code></li>
+  </ul>
+</section>
+
+<section>
+  <h2>盒模型（必须背）</h2>
+  <pre><code>margin  →  盒子与其他盒子的距离（框外）
+border  →  边框 / 墙（描边、圆角）
+padding →  内容与边框的距离（框内留白）
+content →  内容本体（文字 / 图片 / 子盒子）</code></pre>
+  <p>从外到里：<strong>margin → border → padding → content</strong>。</p>
+  <p>对号入座（Pixso ↔ CSS）：元素间空白 ≈ <code>margin</code>；元素内留白 ≈ <code>padding</code>；描边 ≈ <code>border</code>。</p>
+</section>
+
+<section>
+  <h2>常用属性速查</h2>
+  <table>
+    <tr><th>属性</th><th>作用</th><th>示例</th></tr>
+    <tr><td><code>color</code></td><td>文字颜色</td><td><code>color: #333;</code></td></tr>
+    <tr><td><code>background</code></td><td>背景色</td><td><code>background: #e6f5ee;</code></td></tr>
+    <tr><td><code>font-size</code></td><td>字号</td><td><code>font-size: 20px;</code></td></tr>
+    <tr><td><code>border-radius</code></td><td>圆角</td><td><code>border-radius: 12px;</code></td></tr>
+    <tr><td><code>padding</code></td><td>内边距（框内）</td><td><code>padding: 16px;</code></td></tr>
+    <tr><td><code>margin</code></td><td>外边距（框外）</td><td><code>margin: 20px auto;</code></td></tr>
+    <tr><td><code>width</code></td><td>宽度</td><td><code>width: 340px;</code></td></tr>
+    <tr><td><code>text-align</code></td><td>文字对齐</td><td><code>text-align: center;</code></td></tr>
+    <tr><td><code>border</code></td><td>描边（粗细 样式 颜色）</td><td><code>border: 2px solid #ccc;</code></td></tr>
+    <tr><td><code>font-weight</code></td><td>字重（粗体）</td><td><code>font-weight: 700;</code></td></tr>
+  </table>
+  <p>颜色格式：<code>#2c7a5f</code>（十六进制）或单词 <code>red</code>。Pixso 属性面板里的色值可直接抄。</p>
+</section>
+
+<section>
+  <h2>常见坑 &amp; 排错顺序</h2>
+  <ol>
+    <li><code>&lt;style&gt;</code> 要在 <code>&lt;head&gt;</code> 里，拼写正确</li>
+    <li>属性行结尾的分号 <code>;</code> 别漏</li>
+    <li>类名一致：HTML <code>class="box"</code> ↔ CSS <code>.box</code></li>
+    <li>改完要保存 <code>⌘S</code> + 刷新 <code>⌘R</code>；还没效果就右键页面 →「检查」，看 Elements 面板里样式有没有被划掉</li>
+  </ol>
+</section>
+
+<nav class="lesson-nav">
+  <span><a href="../lessons/0002-css-and-box-model.html">← 回到第 2 课</a></span>
+  <span><a href="0001-html-cheatsheet.html">HTML 速查表</a> · CSS 速查表</span>
+</nav>
+</body>
+</html>
