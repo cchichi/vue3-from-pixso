@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>交作业包 · Vue3 × Pixso 课程</title>
+<style>
+:root{--ink:#1c2430;--muted:#64748b;--paper:#fffdf8;--soft:#f4f1e8;--green:#42b883;--blue:#3569c8}
+*{box-sizing:border-box}body{max-width:760px;margin:auto;padding:28px 18px 60px;background:var(--paper);color:var(--ink);font:16px/1.7 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif}h1{line-height:1.25;border-bottom:3px solid var(--green);padding-bottom:14px}h2{font-size:1.15rem;border-bottom:1px solid #ddd5c5;padding-bottom:5px;margin-top:30px}label{display:block;font-weight:700;margin:13px 0 5px}textarea,input[type=text],input[type=file]{width:100%;font:inherit;border:1px solid #d8d0c0;border-radius:7px;background:#fff;padding:10px}textarea{min-height:130px;resize:vertical}small,.hint{color:var(--muted);font-size:.9rem}.hint{background:#e9f7f0;border-left:4px solid var(--green);padding:8px 12px;margin:12px 0}.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}button{border:0;border-radius:8px;padding:11px 18px;background:var(--green);color:#083b27;font:inherit;font-weight:700;cursor:pointer}button:hover{filter:brightness(.95)}#status{margin-left:10px;color:var(--green);font-weight:700}@media(max-width:600px){.row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<h1>📦 作业打包器</h1>
+<p>在公司电脑完成练习后，把下面内容填好，点击「下载作业包」。生成的是一个<strong>单独的 HTML 文件</strong>，里面包含你的代码、答案、问题和截图，可以直接上传到聊天里给老师验收。</p>
+<div class="hint"><strong>隐私提醒：</strong>只提交本课程练习，不要放公司源码、接口地址、密码、Token 或客户数据。</div>
+
+<h2>第几课？</h2>
+<div class="row"><div><label for="lesson">课程编号</label><input id="lesson" type="text" value="第 1 课" /></div><div><label for="name">你的称呼（可选）</label><input id="name" type="text" placeholder="例如：小唐" /></div></div>
+
+<h2>1. Pixso 盒子树</h2>
+<label for="tree">把 Pixso 图层前 3 层抄到这里</label>
+<textarea id="tree" placeholder="页面\n└─ 卡片\n   ├─ 标题\n   └─ 按钮"></textarea>
+
+<h2>2. 练习代码</h2>
+<label for="code">粘贴 practice/index.html 的完整代码</label>
+<textarea id="code" style="min-height:260px" placeholder="把 VS Code 里的 HTML 全选复制到这里"></textarea>
+
+<h2>3. 自我检查</h2>
+<label for="done">我做了什么、遇到什么问题？</label>
+<textarea id="done" placeholder="例如：改了名字，加了一个 div；浏览器能打开，但圆角没生效"></textarea>
+<label for="answer">测验/思考题答案（可选）</label>
+<textarea id="answer" placeholder="例如：HTML 管结构；开标签没有斜杠；盒子不能交叉嵌套"></textarea>
+
+<h2>4. 页面截图（可选但推荐）</h2>
+<input id="image" type="file" accept="image/png,image/jpeg,image/webp,image/gif" />
+<p class="hint">截图只会嵌入你下载的作业包，不会上传到这个网页。</p>
+
+<p><button id="download">下载作业包</button><span id="status"></span></p>
+<p class="small">下载后，把生成的 <code>vue3-作业-第1课.html</code> 文件直接拖到聊天框上传即可。</p>
+
+<script>
+(function(){
+  const $=id=>document.getElementById(id);
+  const esc=s=>String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  $('download').onclick=()=>{
+    const file=$('image').files[0];
+    const make=image=>{
+      const lesson=esc($('lesson').value), name=esc($('name').value)||'未填写';
+      const out='<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>作业包 - '+lesson+'</title><style>body{max-width:900px;margin:auto;padding:28px 18px;font:16px/1.7 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;color:#1c2430}h1{border-bottom:3px solid #42b883;padding-bottom:12px}h2{border-bottom:1px solid #ddd;padding-bottom:4px;margin-top:28px}pre{white-space:pre-wrap;background:#282c34;color:#eee;padding:14px;border-radius:8px;overflow:auto}img{max-width:100%;border:1px solid #ddd;border-radius:8px} .meta{color:#64748b}</style></head><body><h1>Vue3 × Pixso 课程 · '+lesson+' 作业包</h1><p class="meta">提交人：'+name+'</p><h2>Pixso 盒子树</h2><pre>'+esc($('tree').value)+'</pre><h2>练习代码</h2><pre>'+esc($('code').value)+'</pre><h2>自我检查与问题</h2><pre>'+esc($('done').value)+'</pre><h2>测验/思考题答案</h2><pre>'+esc($('answer').value)+'</pre>'+(image?'<h2>页面截图</h2><img src="'+image+'">':'<p>未附截图。</p>')+'<hr><p>这个文件由 Vue3 × Pixso 课程在线作业打包器生成。</p></body></html>';
+      const blob=new Blob([out],{type:'text/html;charset=utf-8'}), a=document.createElement('a');
+      a.href=URL.createObjectURL(blob);a.download='vue3-作业-'+($('lesson').value||'未命名').replace(/[^\w\u4e00-\u9fff-]/g,'')+'.html';a.click();URL.revokeObjectURL(a.href);$('status').textContent='✅ 已下载，上传这个 HTML 文件即可';
+    };
+    if(file){const r=new FileReader();r.onload=()=>make(r.result);r.readAsDataURL(file)}else make('');
+  };
+})();
+</script>
+</body></html>
